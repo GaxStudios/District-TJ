@@ -1,0 +1,29 @@
+# 🌆 District TJ — Landing Page
+
+**District TJ** is an indie project developed in **Unreal Engine 5**, inspired by the urban skyline of Tijuana.  
+This repository contains the **official game website**, including the landing page, download section, and legal information (privacy policy and terms of use).
+
+---
+
+## 📍 Website URL
+The site is published via **GitHub Pages**:  
+
+👉 [https://YOUR_USERNAME.github.io/district-tj/](https://YOUR_USERNAME.github.io/district-tj/)
+
+---
+
+## 📂 Project Structure
+- `index.html` → Main landing page.  
+- `download.html` → Downloads section (demo).  
+- `legal.html` → Privacy Policy and Terms of Use.  
+- `/gallery/` → Images, icons, screenshots.  
+
+---
+
+## 🚀 Run Locally
+If you want to test the site on your computer before deploying:
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/YOUR_USERNAME/district-tj.git
+   cd district-tj

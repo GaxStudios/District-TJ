@@ -1,0 +1,360 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>District TJ — Explora Tijuana en Unreal Engine 5</title>
+  <meta name="description" content="District TJ es un juego urbano ambientado en Tijuana, creado en Unreal Engine 5. Explora su skyline, cambia entre cámara en 1ª y 3ª persona, y recorre sus rascacielos." />
+  <meta name="theme-color" content="#0f172a" />
+  <!-- Open Graph -->
+  <meta property="og:title" content="District TJ — Explora Tijuana en UE5" />
+  <meta property="og:description" content="Explora Tijuana con visuales de alta fidelidad, cámara 1ª/3ª persona y rascacielos icónicos." />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="assets/og-cover.jpg" />
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Bebas+Neue&display=swap" rel="stylesheet">
+  <!-- Favicon (opcional) -->
+  <link rel="icon" href="assets/favicon.png" type="image/png">
+  <style>
+    :root{
+      --bg:#0b1020;--panel:#0d1328;--muted:#94a3b8;--text:#e2e8f0;--brand:#22d3ee;--brand-2:#7c3aed;--accent:#14b8a6;--card:#0f172a;
+      --radius:18px;--shadow:0 10px 30px rgba(0,0,0,.35)
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0; font-family:Inter,system-ui,Segoe UI,Roboto,Arial,sans-serif; color:var(--text);
+      background: radial-gradient(1200px 600px at 15% 0%, rgba(34,211,238,.08), transparent 60%),
+                  radial-gradient(1200px 600px at 85% 20%, rgba(124,58,237,.08), transparent 60%), var(--bg);
+      background-attachment: fixed;
+      line-height:1.6;
+    }
+    a{color:var(--brand); text-decoration:none}
+    .container{width:min(1120px, 92%); margin:0 auto}
+    header{
+      position:sticky; top:0; backdrop-filter:saturate(140%) blur(8px);
+      background:linear-gradient(180deg, rgba(15,23,42,.85), rgba(15,23,42,.55));
+      border-bottom:1px solid rgba(148,163,184,.15); z-index:20
+    }
+    .nav{display:flex; align-items:center; justify-content:space-between; padding:14px 0}
+    .logo{display:flex; align-items:center; gap:12px; font-weight:800}
+    .logo-badge{width:34px; height:34px; display:grid; place-items:center; border-radius:10px; background: linear-gradient(135deg, var(--brand), var(--brand-2)); box-shadow:var(--shadow)}
+    .logo-title{letter-spacing:.6px}
+    nav ul{display:flex; gap:18px; list-style:none; padding:0; margin:0}
+    nav a{color:var(--text); opacity:.9}
+    .btn{display:inline-flex; align-items:center; gap:10px; padding:12px 18px; border-radius:999px; background:linear-gradient(135deg, var(--brand), var(--brand-2)); color:#0b1020; font-weight:800; box-shadow: var(--shadow); border:none; cursor:pointer}
+    .btn.secondary{background:#121a36; color:var(--text); border:1px solid rgba(148,163,184,.25)}
+    .hero{padding:70px 0 40px}
+    .headline{display:flex; gap:16px; align-items:center; margin-bottom:10px; flex-wrap:wrap}
+    .title{font-family:"Bebas Neue", system-ui; font-size: clamp(42px, 9vw, 86px); line-height:.95; margin:0}
+    .pill{padding:6px 12px; border:1px solid rgba(148,163,184,.25); border-radius:999px; color:var(--muted); font-size:14px}
+    .sub{color:var(--muted); max-width:820px}
+    .cta{display:flex; gap:12px; flex-wrap:wrap; margin:22px 0 8px}
+    .panel{background:linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.02)); border:1px solid rgba(148,163,184,.15); border-radius:var(--radius); box-shadow:var(--shadow)}
+    .feature-grid{display:grid; grid-template-columns:repeat(3, 1fr); gap:16px; margin:28px 0}
+    .card{padding:18px; min-height:140px}
+    .card h3{margin:0 0 8px; font-size:18px}
+    .card p{margin:0; color:var(--muted)}
+    .media{display:grid; grid-template-columns: 1.2fr .8fr; gap:16px; align-items:stretch; margin:24px 0}
+    .iframe-wrap{border-radius:var(--radius); overflow:hidden; aspect-ratio:16/9; border:1px solid rgba(148,163,184,.2)}
+    .gallery{display:grid; grid-template-columns:repeat(3,1fr); gap:10px}
+    .shot{margin:0; aspect-ratio:16/10; border-radius:12px; overflow:hidden; border:1px solid rgba(148,163,184,.25); box-shadow:0 4px 12px rgba(0,0,0,.25); transition:transform .25s ease, box-shadow .25s ease}
+    .shot:hover{transform:scale(1.02); box-shadow:0 8px 20px rgba(0,0,0,.35)}
+    .shot img{width:100%; height:100%; object-fit:cover; display:block}
+    .roadmap{display:grid; grid-template-columns:repeat(4,1fr); gap:14px; margin:10px 0 40px}
+    .phase{padding:16px}
+    .phase h4{margin:0 0 6px}
+    .badge{font-size:12px; opacity:.8}
+    .blog{display:grid; grid-template-columns:repeat(3,1fr); gap:14px}
+    .post{padding:16px}
+    .post h4{margin:0 0 8px}
+    .post time{color:var(--muted); font-size:12px}
+    .signup{display:flex; gap:10px; flex-wrap:wrap; padding:20px}
+    .signup input{flex:1 1 280px; padding:12px 14px; border-radius:999px; border:1px solid rgba(148,163,184,.25); background:#0c142e; color:var(--text)}
+    footer{margin-top:50px; padding:30px 0; border-top:1px solid rgba(148,163,184,.15); color:var(--muted)}
+    .foot{display:flex; align-items:center; justify-content:space-between; gap:10px; flex-wrap:wrap}
+    .social{display:flex; gap:12px}
+    .lang-toggle{margin-left:10px; cursor:pointer; font-weight:700; color:var(--brand)}
+    @media (max-width:1024px){
+      .feature-grid{grid-template-columns:repeat(2, 1fr)}
+      .media{grid-template-columns:1fr}
+      .blog{grid-template-columns:repeat(2,1fr)}
+      .roadmap{grid-template-columns:repeat(2,1fr)}
+    }
+    @media (max-width:680px){
+      nav ul{display:none}
+      .feature-grid{grid-template-columns:1fr}
+      .blog{grid-template-columns:1fr}
+      .roadmap{grid-template-columns:1fr}
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container nav">
+      <div class="logo">
+        <div class="logo-badge" aria-hidden="true">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4 20V12h3v8M9 20V8h3v12M14 20v-6h3v6M19 20v-9h3v9M1 20h22" stroke="#0b1020" stroke-width="2"/></svg>
+        </div>
+        <span class="logo-title">District TJ</span>
+      </div>
+      <nav aria-label="principal">
+        <ul>
+          <li><a href="#inicio" data-i18n="nav.home">Inicio</a></li>
+          <li><a href="#caracteristicas" data-i18n="nav.features">Características</a></li>
+          <li><a href="#galeria" data-i18n="nav.gallery">Galería</a></li>
+          <li><a href="#equipo" data-i18n="nav.team">Equipo</a></li>
+          <li><a href="#faq" data-i18n="nav.faq">FAQ</a></li>
+          <li><a href="#roadmap" data-i18n="nav.roadmap">Roadmap</a></li>
+          <li><a href="#blog" data-i18n="nav.blog">Dev Log</a></li>
+          <li><a href="#contacto" data-i18n="nav.contact">Contacto</a></li>
+        </ul>
+      </nav>
+      <div style="display:flex;align-items:center;gap:10px">
+        <a class="btn" href="download.html" role="button" data-i18n="nav.download">Descargar demo</a>
+        <span class="lang-toggle" onclick="toggleLang()">EN</span>
+      </div>
+    </div>
+  </header>
+
+  <main id="inicio" class="container hero">
+    <div class="headline">
+      <span class="pill" data-i18n="hero.pill1">Unreal Engine 5 • Lumen & Nanite</span>
+      <span class="pill" data-i18n="hero.pill2">Cámara 1ª/3ª persona</span>
+    </div>
+    <h1 class="title" data-i18n="hero.title">Explora Tijuana en tiempo real</h1>
+    <p class="sub" data-i18n="hero.desc"><strong>District TJ</strong> es una experiencia urbana en UE5 inspirada en el skyline de Tijuana. Recorre rascacielos icónicos y zonas emblemáticas alternando entre primera y tercera persona.</p>
+    <div class="cta">
+      <a class="btn" href="#trailer" data-i18n="hero.cta1">Ver tráiler</a>
+      <a class="btn secondary" href="#caracteristicas" data-i18n="hero.cta2">Ver características</a>
+    </div>
+
+    <section id="caracteristicas" class="feature-grid">
+      <article class="panel card"><h3 data-i18n="features.f1.title">Skyline realista</h3><p data-i18n="features.f1.text">Rascacielos basados en referencias reales, materiales PBR y optimización con Nanite.</p></article>
+      <article class="panel card"><h3 data-i18n="features.f2.title">Cámara 1ª/3ª persona</h3><p data-i18n="features.f2.text">Alterna al vuelo para paseos inmersivos o vista de personaje completa.</p></article>
+      <article class="panel card"><h3 data-i18n="features.f3.title">Lumen global</h3><p data-i18n="features.f3.text">Iluminación y reflejos dinámicos para atardeceres y noches en la ciudad.</p></article>
+      <article class="panel card"><h3 data-i18n="features.f4.title">Terreno real</h3><p data-i18n="features.f4.text">Topografía importada como Landscape para pendientes auténticas.</p></article>
+      <article class="panel card"><h3 data-i18n="features.f5.title">Interiores clave</h3><p data-i18n="features.f5.text">Lobby y niveles de acceso con vidrio y concreto azul/negro.</p></article>
+      <article class="panel card"><h3 data-i18n="features.f6.title">Optimización</h3><p data-i18n="features.f6.text">Level Streaming, LODs y materiales instanciados para rendimiento sólido.</p></article>
+    </section>
+
+    <section class="media" id="trailer">
+      <div class="iframe-wrap panel">
+        <iframe width="100%" height="100%" src="https://www.youtube.com/watch?v=5WwmkGKEW6Q" title="Tráiler District TJ" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+      </div>
+      <div class="panel" style="padding:16px;">
+        <h3 data-i18n="about.title">Sobre el proyecto</h3>
+        <p style="color:var(--muted);" data-i18n="about.text">Proyecto indie creado con Unreal Engine 5. En desarrollo activo: prototipo de exploración urbana, materiales PBR y rascacielos emblemáticos.</p>
+        <ul style="margin:0; padding-left:18px; color:var(--muted); line-height:1.7">
+          <li data-i18n="about.spec1">PC Windows (builds de prueba)</li>
+          <li data-i18n="about.spec2">Gamepad/Teclado + Ratón</li>
+          <li data-i18n="about.spec3">Próximamente: modo foto, ciclo día/noche</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Galería -->
+    <section id="galeria">
+      <h2 class="title" style="font-size:38px; margin:24px 0 8px" data-i18n="gallery.title">Galería</h2>
+      <div class="gallery">
+        <figure class="shot"><img src="gallery/NC.jpg" alt="Vista aérea en el juego" loading="lazy" decoding="async"></figure>
+        <figure class="shot"><img src="gallery/NCC.jpg" alt="Rascacielos y atardecer" loading="lazy" decoding="async"></figure>
+        <figure class="shot"><img src="gallery/NCS.jpg" alt="Boulevard urbano" loading="lazy" decoding="async"></figure>
+      </div>
+    </section>
+
+    <!-- Equipo -->
+    <section id="equipo" class="panel" style="margin-top:28px; padding:18px;">
+      <h2 class="title" style="font-size:38px;" data-i18n="team.title">Sobre el equipo</h2>
+      <p style="color:var(--muted);" data-i18n="team.text">
+        District TJ es un proyecto indie desarrollado en Baja California por un pequeño equipo apasionado por el 3D, los videojuegos y la cultura urbana. Buscamos capturar la esencia de Tijuana con UE5.
+      </p>
+    </section>
+
+    <!-- FAQ -->
+    <section id="faq" class="panel" style="margin-top:28px; padding:18px;">
+      <h2 class="title" style="font-size:38px;" data-i18n="faq.title">Preguntas frecuentes</h2>
+      <details>
+        <summary data-i18n="faq.q1">¿En qué plataformas estará disponible?</summary>
+        <p data-i18n="faq.a1">Inicialmente en PC (Windows). Otras plataformas dependerán del interés de la comunidad.</p>
+      </details>
+      <details>
+        <summary data-i18n="faq.q2">¿El juego será gratuito?</summary>
+        <p data-i18n="faq.a2">La demo será gratuita. La versión final podría publicarse en itch.io o Steam.</p>
+      </details>
+      <details>
+        <summary data-i18n="faq.q3">¿Cuándo estará lista la demo?</summary>
+        <p data-i18n="faq.a3">Planeamos liberar una versión de prueba en 2026. Puedes suscribirte para enterarte primero.</p>
+      </details>
+    </section>
+
+    <!-- Roadmap -->
+    <section id="roadmap" style="margin-top:32px">
+      <h2 class="title" style="font-size:38px; margin:8px 0 8px" data-i18n="roadmap.title">Roadmap</h2>
+      <div class="roadmap">
+        <div class="panel phase"><h4 data-i18n="roadmap.pre.title">Pre-Alpha</h4><span class="badge" data-i18n="roadmap.pre.badge">En curso</span><p style="color:var(--muted)" data-i18n="roadmap.pre.text">Greyboxing, importación de edificios, materiales base y cámara 1ª/3ª.</p></div>
+        <div class="panel phase"><h4 data-i18n="roadmap.alpha.title">Alpha</h4><span class="badge" data-i18n="roadmap.alpha.badge">Próximo</span><p style="color:var(--muted)" data-i18n="roadmap.alpha.text">Terreno real, optimización Lumen/Nanite, primeras misiones de recorrido.</p></div>
+        <div class="panel phase"><h4 data-i18n="roadmap.beta.title">Beta</h4><span class="badge" data-i18n="roadmap.beta.badge">Planeado</span><p style="color:var(--muted)" data-i18n="roadmap.beta.text">Interiores clave, ciclo día/noche, modo foto y accesibilidad.</p></div>
+        <div class="panel phase"><h4 data-i18n="roadmap.one.title">1.0</h4><span class="badge" data-i18n="roadmap.one.badge">Planeado</span><p style="color:var(--muted)" data-i18n="roadmap.one.text">Más zonas, optimización general y lanzamiento en itch.io/Steam (pendiente).</p></div>
+      </div>
+    </section>
+
+    <!-- Descargas (CTA a página dedicada) -->
+    <section id="descargas" class="panel" style="margin-top:28px; padding:18px;">
+      <h3 data-i18n="download.title">Descargas</h3>
+      <p style="color:var(--muted)" data-i18n="download.text">Demo de PC (Windows) próximamente.</p>
+      <div class="cta">
+        <a class="btn" href="download.html" data-i18n="download.cta1">Ir a descargas</a>
+        <a class="btn secondary" href="#contacto" data-i18n="download.cta2">Solicitar acceso privado</a>
+      </div>
+    </section>
+
+    <!-- Contacto / Newsletter (Formspree: reemplaza XXXXXXX por tu ID) -->
+    <section id="contacto" class="panel" style="margin-top:28px; padding:18px;">
+      <h3 data-i18n="contact.title">Noticias y contacto</h3>
+      <form class="signup" action="https://formspree.io/f/xnnbgbvb" method="POST">
+        <input type="email" name="email" required placeholder="Tu correo" aria-label="Correo electrónico" data-i18n-placeholder="contact.placeholder" />
+        <button class="btn" type="submit" data-i18n="contact.cta">Quiero enterarme</button>
+        <input type="hidden" name="_subject" value="Suscripción District TJ" />
+      </form>
+      <p style="color:var(--muted); margin-top:8px" data-i18n="contact.text">
+        ¿Prensa o colaboraciones? Escríbenos a <a href="mailto:gaxstudios7@gmail.com">gaxstudios7@gmail.com</a>.
+      </p>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container foot">
+      <div style="display:flex; align-items:center; gap:10px">
+        <div class="logo-badge" aria-hidden="true" style="width:28px;height:28px"></div>
+        <span> <span id="y"></span> District TJ</span>
+      </div>
+    </div>
+    <div class="container" style="margin-top:20px; font-size:14px; color:var(--muted); text-align:center;">
+      <p data-i18n="footer.disclaimer">District TJ es un proyecto independiente sin afiliación oficial con la ciudad de Tijuana. Todo el contenido es ficticio y creado con fines artísticos y de entretenimiento.</p>
+      <p>
+        <a href="legal.html#privacidad" data-i18n="footer.privacy">Política de privacidad</a> ·
+        <a href="legal.html#terminos" data-i18n="footer.terms">Términos de uso</a>
+      </p>
+    </div>
+  </footer>
+
+  <!-- utilidades -->
+  <script>
+    // año dinámico
+    document.getElementById('y').textContent = new Date().getFullYear();
+    // scroll suave para anclas
+    document.querySelectorAll('a[href^="#"]').forEach(a=>{
+      a.addEventListener('click',e=>{
+        const id=a.getAttribute('href');
+        if(id && id.length>1){ e.preventDefault(); document.querySelector(id)?.scrollIntoView({behavior:'smooth'}); }
+      })
+    });
+  </script>
+
+  <!-- i18n ES/EN -->
+  <script>
+    const i18n = {
+      en: {
+        'nav.home':'Home','nav.features':'Features','nav.gallery':'Gallery','nav.team':'Team','nav.faq':'FAQ','nav.roadmap':'Roadmap','nav.blog':'Dev Log','nav.contact':'Contact','nav.download':'Download demo',
+        'hero.pill1':'Unreal Engine 5 • Lumen & Nanite','hero.pill2':'First/Third person camera','hero.title':'Explore Tijuana in real time',
+        'hero.desc':'<strong>District TJ</strong> is an urban experience in UE5 inspired by Tijuana’s skyline. Walk through iconic areas while switching between first and third person.',
+        'hero.cta1':'Watch trailer','hero.cta2':'See features',
+        'features.f1.title':'Realistic skyline','features.f1.text':'Skyscrapers based on real references, PBR materials, and Nanite optimization.',
+        'features.f2.title':'First/Third person','features.f2.text':'Switch on the fly for immersive walks or a full character view.',
+        'features.f3.title':'Global Lumen','features.f3.text':'Dynamic lighting and reflections for sunsets and city nights.',
+        'features.f4.title':'Real terrain','features.f4.text':'Topography imported as Landscape for authentic slopes.',
+        'features.f5.title':'Key interiors','features.f5.text':'Lobby and access levels with glass and blue/black concrete.',
+        'features.f6.title':'Optimization','features.f6.text':'Level Streaming, LODs, and instanced materials for stable performance.',
+        'about.title':'About the project','about.text':'Indie project built with Unreal Engine 5. In active development: urban exploration prototype, PBR materials, and emblematic towers.',
+        'about.spec1':'PC Windows (test builds)','about.spec2':'Gamepad/Keyboard + Mouse','about.spec3':'Coming soon: photo mode, day/night cycle',
+        'gallery.title':'Gallery',
+        'team.title':'About the team','team.text':'District TJ is an indie project developed in Baja California by a small team passionate about 3D, video games, and urban culture. We aim to capture Tijuana’s essence with UE5.',
+        'faq.title':'Frequently Asked Questions',
+        'faq.q1':'Which platforms will be supported?','faq.a1':'Initially PC (Windows). Other platforms depend on community interest.',
+        'faq.q2':'Will the game be free?','faq.a2':'The demo will be free. The final version may release on itch.io or Steam.',
+        'faq.q3':'When will the demo be ready?','faq.a3':'We plan to release a playtest in 2026. Subscribe to be the first to know.',
+        'roadmap.title':'Roadmap',
+        'roadmap.pre.title':'Pre-Alpha','roadmap.pre.badge':'Ongoing','roadmap.pre.text':'Greyboxing, buildings import, base materials and 1st/3rd camera.',
+        'roadmap.alpha.title':'Alpha','roadmap.alpha.badge':'Next','roadmap.alpha.text':'Real terrain, Lumen/Nanite optimization, first walking missions.',
+        'roadmap.beta.title':'Beta','roadmap.beta.badge':'Planned','roadmap.beta.text':'Key interiors, day/night cycle, photo mode and accessibility.',
+        'roadmap.one.title':'1.0','roadmap.one.badge':'Planned','roadmap.one.text':'More areas, general optimization, itch.io/Steam release (TBD).',
+        'blog.title':'Dev Log',
+        'blog.p1.title':'Imported buildings by parts and applied PBR materials','blog.p1.text':'Separated blue/black concrete and translucent glass. Next: more city landmarks.',
+        'blog.p2.title':'1st/3rd camera toggle with Enhanced Input','blog.p2.text':'Two cameras in Character and a smooth blend on key V.',
+        'blog.p3.title':'Boulevard greybox and scale test','blog.p3.text':'Real-world heights (1u=1cm). Feels huge.',
+        'download.title':'Downloads','download.text':'PC demo (Windows) coming soon.','download.cta1':'Go to downloads','download.cta2':'Request private access',
+        'contact.title':'News & contact','contact.placeholder':'Your email','contact.cta':'Keep me posted',
+        'contact.text':'Press or collabs? Email us at <a href="mailto:gaxstudios7@gmail.com">gaxstudios7@gmail.com</a>.',
+        'footer.disclaimer':'District TJ is a  Gax Studios project not officially affiliated with the city of Tijuana. All content is fictional and created for artistic and entertainment purposes.',
+        'footer.privacy':'Privacy Policy','footer.terms':'Terms of Use'
+      },
+      es: {
+        'nav.home':'Inicio','nav.features':'Características','nav.gallery':'Galería','nav.team':'Equipo','nav.faq':'FAQ','nav.roadmap':'Roadmap','nav.blog':'Dev Log','nav.contact':'Contacto','nav.download':'Descargar demo',
+        'hero.pill1':'Unreal Engine 5 • Lumen & Nanite','hero.pill2':'Cámara 1ª/3ª persona','hero.title':'Explora Tijuana en tiempo real',
+        'hero.desc':'<strong>District TJ</strong> es una experiencia urbana en UE5 inspirada en el skyline de Tijuana. Recorre zonas emblemáticas alternando entre primera y tercera persona.',
+        'hero.cta1':'Ver tráiler','hero.cta2':'Ver características',
+        'features.f1.title':'Skyline realista','features.f1.text':'Rascacielos basados en referencias reales, materiales PBR y optimización con Nanite.',
+        'features.f2.title':'Cámara 1ª/3ª persona','features.f2.text':'Alterna al vuelo para paseos inmersivos o vista de personaje completa.',
+        'features.f3.title':'Lumen global','features.f3.text':'Iluminación y reflejos dinámicos para atardeceres y noches en la ciudad.',
+        'features.f4.title':'Terreno real','features.f4.text':'Topografía importada como Landscape para pendientes auténticas.',
+        'features.f5.title':'Interiores clave','features.f5.text':'Lobby y niveles de acceso con vidrio y concreto azul/negro.',
+        'features.f6.title':'Optimización','features.f6.text':'Level Streaming, LODs y materiales instanciados para rendimiento sólido.',
+        'about.title':'Sobre el proyecto','about.text':'Proyecto indie creado con Unreal Engine 5. En desarrollo activo: prototipo de exploración urbana, materiales PBR y torres emblemáticas.',
+        'about.spec1':'PC Windows (builds de prueba)','about.spec2':'Gamepad/Teclado + Ratón','about.spec3':'Próximamente: modo foto, ciclo día/noche',
+        'gallery.title':'Galería',
+        'team.title':'Sobre el equipo','team.text':'District TJ es un proyecto indie desarrollado en Baja California por un pequeño equipo apasionado por el 3D, los videojuegos y la cultura urbana. Buscamos capturar la esencia de Tijuana con UE5.',
+        'faq.title':'Preguntas frecuentes',
+        'faq.q1':'¿En qué plataformas estará disponible?','faq.a1':'Inicialmente en PC (Windows). Otras plataformas dependerán del interés de la comunidad.',
+        'faq.q2':'¿El juego será gratuito?','faq.a2':'La demo será gratuita. La versión final podría publicarse en itch.io o Steam.',
+        'faq.q3':'¿Cuándo estará lista la demo?','faq.a3':'Planeamos liberar una versión de prueba en 2026. Puedes suscribirte para enterarte primero.',
+        'roadmap.title':'Roadmap',
+        'roadmap.pre.title':'Pre-Alpha','roadmap.pre.badge':'En curso','roadmap.pre.text':'Greyboxing, importación de edificios, materiales base y cámara 1ª/3ª.',
+        'roadmap.alpha.title':'Alpha','roadmap.alpha.badge':'Próximo','roadmap.alpha.text':'Terreno real, optimización Lumen/Nanite, primeras misiones de recorrido.',
+        'roadmap.beta.title':'Beta','roadmap.beta.badge':'Planeado','roadmap.beta.text':'Interiores clave, ciclo día/noche, modo foto y accesibilidad.',
+        'roadmap.one.title':'1.0','roadmap.one.badge':'Planeado','roadmap.one.text':'Más zonas, optimización general y lanzamiento en itch.io/Steam (pendiente).',
+        'blog.title':'Dev Log',
+        'blog.p1.title':'Importé edificios por partes y apliqué materiales PBR','blog.p1.text':'Separé concreto azul/negro y vidrio translúcido. Próximo: más hitos urbanos.',
+        'blog.p2.title':'Toggle 1ª/3ª persona con Enhanced Input','blog.p2.text':'Dos cámaras en el Character y blend suave con tecla V.',
+        'blog.p3.title':'Greybox de boulevard y prueba de escala','blog.p3.text':'Alturas reales (1u=1cm). Se siente enorme.',
+        'download.title':'Descargas','download.text':'Demo de PC (Windows) próximamente.','download.cta1':'Ir a descargas','download.cta2':'Solicitar acceso privado',
+        'contact.title':'Noticias y contacto','contact.placeholder':'Tu correo','contact.cta':'Quiero enterarme',
+        'contact.text':'¿Prensa o colaboraciones? Escríbenos a <a href="mailto:gaxstudios7@gmail.com">gaxstudios7@gmail.com</a>.',
+        'footer.disclaimer':'District TJ es un proyecto de Gax Studios sin afiliación oficial con la ciudad de Tijuana. Todo el contenido es ficticio y creado con fines artísticos y de entretenimiento.',
+        'footer.privacy':'Política de privacidad','footer.terms':'Términos de uso'
+      }
+    };
+
+    let currentLang='es';
+    function applyI18n(lang){
+      // textos
+      document.querySelectorAll('[data-i18n]').forEach(el=>{
+        const key=el.getAttribute('data-i18n');
+        const html=i18n[lang][key];
+        if(html!==undefined) el.innerHTML=html;
+      });
+      // placeholders
+      document.querySelectorAll('[data-i18n-placeholder]').forEach(el=>{
+        const key=el.getAttribute('data-i18n-placeholder');
+        const txt=i18n[lang][key];
+        if(txt!==undefined) el.setAttribute('placeholder',txt);
+      });
+      // botón toggler y lang del documento
+      const toggler=document.querySelector('.lang-toggle'); if(toggler) toggler.textContent=lang==='es'?'EN':'ES';
+      currentLang=lang; document.documentElement.setAttribute('lang', lang==='es'?'es':'en');
+    }
+    function toggleLang(){ applyI18n(currentLang==='es'?'en':'es'); }
+    // inicial
+    applyI18n('es');
+  </script>
+
+  <!-- Schema.org: VideoGame -->
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"VideoGame","name":"District TJ","url":"https://example.com/","image":"https://example.com/assets/og-cover.jpg","description":"Explora Tijuana en tiempo real con cámara 1ª/3ª persona, rascacielos icónicos y visuales de UE5.","genre":["Exploración","Urbano","Indie"],"operatingSystem":"Windows","applicationCategory":"Game","gamePlatform":["PC"]}
+  </script>
+</body>
+</html>

@@ -1,0 +1,192 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>District TJ — Política de privacidad & Términos</title>
+  <meta name="description" content="Política de privacidad y Términos de uso de District TJ." />
+  <style>
+    body {
+      font-family: system-ui, sans-serif;
+      margin: 0; padding: 0;
+      background: #0b1020; color: #e2e8f0;
+      line-height: 1.6;
+    }
+    .container {
+      width: min(900px, 92%);
+      margin: 0 auto; padding: 30px 0;
+    }
+    h1, h2, h3 { color: #22d3ee; margin-top: 28px; }
+    a { color: #22d3ee; }
+    header, footer {
+      background: #0d1328; padding: 16px 0; text-align: center;
+    }
+    footer { margin-top: 40px; font-size: 14px; color: #94a3b8; }
+    .lang-toggle {
+      cursor: pointer; font-weight: 700; color: #22d3ee;
+      margin-left: 10px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>District TJ</h1>
+    <span class="lang-toggle" onclick="toggleLang()">EN</span>
+  </header>
+
+  <main class="container">
+    <section id="privacidad">
+      <h2 data-i18n="privacy.title">Política de privacidad</h2>
+      <p data-i18n="privacy.intro">Esta política explica qué datos recopilamos en este sitio y cómo los usamos. Nos tomamos en serio tu privacidad.</p>
+      
+      <h3 data-i18n="privacy.collect.title">Datos que recopilamos</h3>
+      <ul>
+        <li data-i18n="privacy.collect.email">Correo electrónico: si te suscribes a noticias o descargas (para enviarte actualizaciones).</li>
+        <li data-i18n="privacy.collect.analytics">Analítica opcional: métricas anónimas de uso para mejorar la web (puedes desactivarla con bloqueadores).</li>
+        <li data-i18n="privacy.collect.cookies">Cookies: solo las necesarias para el funcionamiento básico y preferencias de idioma.</li>
+      </ul>
+
+      <h3 data-i18n="privacy.usage.title">Cómo usamos tus datos</h3>
+      <p data-i18n="privacy.usage.text">Usamos tu correo únicamente para enviarte novedades del juego o responderte. No vendemos tus datos.</p>
+
+      <h3 data-i18n="privacy.rights.title">Tus derechos</h3>
+      <p data-i18n="privacy.rights.text">Puedes solicitar acceso, corrección o eliminación de tu información escribiendo a <a href="gaxstudios7@gmail.com">gaxstudios7@gmail.com</a>.</p>
+
+      <h3 data-i18n="privacy.storage.title">Conservación y seguridad</h3>
+      <p data-i18n="privacy.storage.text">Guardamos los datos el tiempo mínimo necesario y aplicamos medidas razonables para protegerlos.</p>
+
+      <h3 data-i18n="privacy.changes.title">Cambios</h3>
+      <p data-i18n="privacy.changes.text">Podemos actualizar esta política. Publicaremos la fecha de la última actualización en esta página.</p>
+
+      <p style="font-size: 12px; color: #94a3b8;" data-i18n="privacy.updated">Última actualización: Septiembre 2025.</p>
+    </section>
+
+    <section id="terminos">
+      <h2 data-i18n="terms.title">Términos de uso</h2>
+
+      <h3 data-i18n="terms.accept.title">Aceptación</h3>
+      <p data-i18n="terms.accept.text">Al usar este sitio aceptas estos términos. Si no estás de acuerdo, por favor no lo uses.</p>
+
+      <h3 data-i18n="terms.license.title">Licencia de uso</h3>
+      <p data-i18n="terms.license.text">Puedes navegar y compartir enlaces al sitio. No está permitido reutilizar el contenido, marcas o logotipos sin permiso.</p>
+
+      <h3 data-i18n="terms.conduct.title">Uso permitido</h3>
+      <ul>
+        <li data-i18n="terms.conduct.noabuse">No intentes interrumpir el servicio ni realizar scraping automatizado excesivo.</li>
+        <li data-i18n="terms.conduct.ip">Respeta los derechos de propiedad intelectual.</li>
+      </ul>
+
+      <h3 data-i18n="terms.disclaimer.title">Avisos</h3>
+      <p data-i18n="terms.disclaimer.text">El sitio se ofrece “tal cual”. No garantizamos disponibilidad o ausencia de errores.</p>
+
+      <h3 data-i18n="terms.changes.title">Cambios</h3>
+      <p data-i18n="terms.changes.text">Podemos modificar estos términos; los cambios serán efectivos al publicarse aquí.</p>
+
+      <h3 data-i18n="terms.contact.title">Contacto: gaxstudios7@gmail.com</h3>
+     
+    </section>
+  </main>
+
+  <div style="text-align:center; margin:20px 0;">
+  <a href="index.html" style="
+    display:inline-block;
+    padding:10px 18px;
+    border-radius:8px;
+    background:#22d3ee;
+    color:#0b1020;
+    font-weight:600;
+    text-decoration:none;
+  ">← Volver al inicio</a>
+</div>
+
+  <footer>
+    <span id="y"></span> District TJ
+  </footer>
+
+  <script>
+    document.getElementById('y').textContent = new Date().getFullYear();
+
+    const i18n = {
+      en: {
+        "privacy.title":"Privacy Policy",
+        "privacy.intro":"This policy explains what data we collect on this site and how we use it. We take your privacy seriously.",
+        "privacy.collect.title":"Data we collect",
+        "privacy.collect.email":"Email: if you subscribe to news or downloads (to send you updates).",
+        "privacy.collect.analytics":"Optional analytics: anonymous usage metrics to improve the site (you can disable with blockers).",
+        "privacy.collect.cookies":"Cookies: only those needed for basic operation and language preferences.",
+        "privacy.usage.title":"How we use your data",
+        "privacy.usage.text":"We only use your email to send you news about the game or reply to you. We do not sell your data.",
+        "privacy.rights.title":"Your rights",
+        "privacy.rights.text":"You can request access, correction, or deletion of your information by emailing <a href='gaxstudios7@gmail.com'>gaxstudios7@gmail.com</a>.",
+        "privacy.storage.title":"Retention & security",
+        "privacy.storage.text":"We keep data for the minimum necessary time and apply reasonable measures to protect it.",
+        "privacy.changes.title":"Changes",
+        "privacy.changes.text":"We may update this policy. We'll post the date of last update on this page.",
+        "privacy.updated":"Last updated: September 2025.",
+
+        "terms.title":"Terms of Use",
+        "terms.accept.title":"Acceptance",
+        "terms.accept.text":"By using this site you accept these terms. If you disagree, please do not use it.",
+        "terms.license.title":"License",
+        "terms.license.text":"You may browse and share links to the site. Reuse of content, trademarks, or logos without permission is not allowed.",
+        "terms.conduct.title":"Permitted use",
+        "terms.conduct.noabuse":"Do not attempt to disrupt the service or perform excessive automated scraping.",
+        "terms.conduct.ip":"Respect intellectual property rights.",
+        "terms.disclaimer.title":"Disclaimers",
+        "terms.disclaimer.text":"The site is provided “as is”. We do not guarantee availability or absence of errors.",
+        "terms.changes.title":"Changes",
+        "terms.changes.text":"We may modify these terms; changes take effect when published here.",
+        "terms.contact.title":"Contact",
+      
+      },
+      es: {
+        "privacy.title":"Política de privacidad",
+        "privacy.intro":"Esta política explica qué datos recopilamos en este sitio y cómo los usamos. Nos tomamos en serio tu privacidad.",
+        "privacy.collect.title":"Datos que recopilamos",
+        "privacy.collect.email":"Correo electrónico: si te suscribes a noticias o descargas (para enviarte actualizaciones).",
+        "privacy.collect.analytics":"Analítica opcional: métricas anónimas de uso para mejorar la web (puedes desactivarla con bloqueadores).",
+        "privacy.collect.cookies":"Cookies: solo las necesarias para el funcionamiento básico y preferencias de idioma.",
+        "privacy.usage.title":"Cómo usamos tus datos",
+        "privacy.usage.text":"Usamos tu correo únicamente para enviarte novedades del juego o responderte. No vendemos tus datos.",
+        "privacy.rights.title":"Tus derechos",
+        "privacy.rights.text":"Puedes solicitar acceso, corrección o eliminación de tu información escribiendo a <a href='gaxstudios7@gmail.com'>gaxstudios7@gmail.com/a>.",
+        "privacy.storage.title":"Conservación y seguridad",
+        "privacy.storage.text":"Guardamos los datos el tiempo mínimo necesario y aplicamos medidas razonables para protegerlos.",
+        "privacy.changes.title":"Cambios",
+        "privacy.changes.text":"Podemos actualizar esta política. Publicaremos la fecha de la última actualización en esta página.",
+        "privacy.updated":"Última actualización: Septiembre 2025.",
+
+        "terms.title":"Términos de uso",
+        "terms.accept.title":"Aceptación",
+        "terms.accept.text":"Al usar este sitio aceptas estos términos. Si no estás de acuerdo, por favor no lo uses.",
+        "terms.license.title":"Licencia de uso",
+        "terms.license.text":"Puedes navegar y compartir enlaces al sitio. No está permitido reutilizar el contenido, marcas o logotipos sin permiso.",
+        "terms.conduct.title":"Uso permitido",
+        "terms.conduct.noabuse":"No intentes interrumpir el servicio ni realizar scraping automatizado excesivo.",
+        "terms.conduct.ip":"Respeta los derechos de propiedad intelectual.",
+        "terms.disclaimer.title":"Avisos",
+        "terms.disclaimer.text":"El sitio se ofrece “tal cual”. No garantizamos disponibilidad o ausencia de errores.",
+        "terms.changes.title":"Cambios",
+        "terms.changes.text":"Podemos modificar estos términos; los cambios serán efectivos al publicarse aquí.",
+
+      }
+    };
+
+    let currentLang = 'es';
+    function applyI18n(lang){
+      document.querySelectorAll('[data-i18n]').forEach(el=>{
+        const key = el.getAttribute('data-i18n');
+        const html = i18n[lang][key];
+        if(html!==undefined) el.innerHTML = html;
+      });
+      document.documentElement.setAttribute('lang', lang);
+      document.querySelector('.lang-toggle').textContent = lang==='es'?'EN':'ES';
+      currentLang = lang;
+    }
+    function toggleLang(){ applyI18n(currentLang==='es'?'en':'es'); }
+    applyI18n('es');
+  </script>
+
+
+</body>
+</html>
